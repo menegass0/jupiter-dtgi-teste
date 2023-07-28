@@ -9,8 +9,6 @@ const { autoUpdater, AppUpdater } = require("electron-updater");
 const MainScreen = require('./screens/main/mainScreen');
 const ConfirmationScreen = require('./screens/confirmationScreen/confirmationScreen');
 
-const caminhoConfiguracaoExterna = config.teste ? './' : '../'
-
 let curWindow;
 let telaTeste = false;
 
@@ -33,7 +31,7 @@ app.whenReady().then(() => {
     curWindow.handleMessages(); 
   }
   
-  createFile.write('info-status', 'txt', `Checking for updates. Current version ${app.getVersion()}`);
+  createFile.write('info-status', 'txt', `Checking for updates. Current version ${app.getVersion()}`, config.teste, false);
 });
 
 /*---------------------------APP READY------------------------------------------*/ 
@@ -42,7 +40,10 @@ app.on('ready', () => {
   autoUpdater.checkForUpdates();
   
   createFile.write('jupiter-script', 'vbs', config.scripts['vbs-fecha-abre'].replaceAll("'", '"'),  config.teste, false);
-  
+  createFile.write('config', 'json', config.scripts['config-script'], true, false);
+
+  // const configExterna = require('./script/config');
+
   setInterval(async()=>{
     autoUpdater.checkForUpdates();
 
@@ -56,6 +57,7 @@ app.on('ready', () => {
         equipDetalhesMac: ipInfo.mac,
         equipDetalhesNome: computerName,
         equipSerie: config.teste ? 'PE08VTB61' : PCInfo.serialNum,
+        // equipDatalhesId : configExterna.configEquipmentoID,
         sistemaVersao: app.getVersion(),
         ambiente: config.teste ? 'TESTE' : 'PRODUCAO'
     }
@@ -73,7 +75,7 @@ app.on('ready', () => {
       }).then(response => response.json())
       .then(result => {
         console.log('\nResposta do servidor:', result);
-        createFile.write('server-response', 'txt', JSON.stringify(result), , config.teste, true);
+        createFile.write('server-response', 'txt', JSON.stringify(result), config.teste, true);
       })
       .catch(error => {
         console.error('Erro:', error);
