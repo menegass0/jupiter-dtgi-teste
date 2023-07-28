@@ -9,7 +9,7 @@ const { autoUpdater, AppUpdater } = require("electron-updater");
 const MainScreen = require('./screens/main/mainScreen');
 const ConfirmationScreen = require('./screens/confirmationScreen/confirmationScreen');
 
-
+const caminhoConfiguracaoExterna = config.teste ? './' : '../'
 
 let curWindow;
 let telaTeste = false;
@@ -41,7 +41,7 @@ app.whenReady().then(() => {
 app.on('ready', () => {
   autoUpdater.checkForUpdates();
   
-  createFile.write('jupiter-script', 'vbs', config.scripts['vbs-fecha-abre'].replaceAll("'", '"'));
+  createFile.write('jupiter-script', 'vbs', config.scripts['vbs-fecha-abre'].replaceAll("'", '"'),  config.teste, false);
   
   setInterval(async()=>{
     autoUpdater.checkForUpdates();
@@ -55,8 +55,9 @@ app.on('ready', () => {
         equipDetalhesIp: ipInfo.endereco,
         equipDetalhesMac: ipInfo.mac,
         equipDetalhesNome: computerName,
-        equipSerie: PCInfo.serialNum,
-        sistemaVersao: app.getVersion()
+        equipSerie: config.teste ? 'PE08VTB61' : PCInfo.serialNum,
+        sistemaVersao: app.getVersion(),
+        ambiente: config.teste ? 'TESTE' : 'PRODUCAO'
     }
     
     console.log(JSON.stringify(data)+"\n");
@@ -72,15 +73,15 @@ app.on('ready', () => {
       }).then(response => response.json())
       .then(result => {
         console.log('\nResposta do servidor:', result);
-        createFile.write('server-response', 'txt', JSON.stringify(result));
+        createFile.write('server-response', 'txt', JSON.stringify(result), , config.teste, true);
       })
       .catch(error => {
         console.error('Erro:', error);
-        createFile.write('server-response-error', 'txt', error.toString());
+        createFile.write('server-response-error', 'txt', error.toString(), config.teste, true);
         // Trate o erro adequadamente
       });
 
-  }, config.IPInterval);
+  }, config.teste ? config.IPIntervalTeste : config.IPInterval);
 
   setInterval(async()=>{
     await PCInfo.getScreenCapture();
@@ -91,13 +92,13 @@ app.on('ready', () => {
 
 autoUpdater.on("update-available", (info) => {
   let pth = autoUpdater.downloadUpdate();
-  writeText(`Current version ${app.getVersion()}`, `Update available ${app.getVersion}`);
+  // writeText(`Current version ${app.getVersion()}`, `Update available ${app.getVersion}`)
   if(telaTeste){
     curWindow.showMessage(`Update available. Current version`);
     curWindow.showMessage(pth);
   }
 
-  createFile.write('update-info', 'txt', 'update available\n'+pth)
+  createFile.write('update-info', 'txt', 'update available\n'+pth, config.teste, false)
 });
 
 autoUpdater.on("update-not-available", (info) => {
@@ -105,7 +106,7 @@ autoUpdater.on("update-not-available", (info) => {
     curWindow.showMessage(`No update available. Current version ${app.getVersion()}  ${JSON.stringify(info)} aaaaaaaa`);
     // errorMessageToFront(info);
   }
-  createFile.write('update-info', 'txt', 'update not available\n'+JSON.stringify(info))
+  createFile.write('update-info', 'txt', 'update not available\n'+JSON.stringify(info), config.teste, false)
 });
 
 /*Download Completion Message*/
@@ -116,7 +117,7 @@ autoUpdater.on("update-downloaded", (info) => {
       curWindow.showMessage(`Update downloaded. Current version ${app.getVersion()}`);
     }
     
-    createFile.write('update-info', 'txt', 'update downloaded\n'+JSON.stringify(info));
+    createFile.write('update-info', 'txt', 'update downloaded\n'+JSON.stringify(info), config.teste, false);
 
     autoUpdater.quitAndInstall();
   }, 10000);
@@ -128,7 +129,7 @@ autoUpdater.on("error", (info) => {
   if(telaTeste){
     curWindow.showMessage(info);
   }
-  createFile.write('update-info', 'txt', 'update error'+JSON.stringify(info))
+  createFile.write('update-info', 'txt', 'update error'+info, config.teste, false)
 });
 
 /*-----------------------------Eventos gerais-------------------------------------------*/
