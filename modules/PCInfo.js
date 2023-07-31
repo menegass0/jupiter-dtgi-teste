@@ -1,5 +1,8 @@
 let serialNumber = require('serial-number');
 const computerName = require('computer-name');
+const createFile = require('./CreateFile');
+const config = require('../config.json');
+
 
 const { networkInterfaces } = require('os');
 const fs = require('fs');
@@ -65,10 +68,51 @@ const PCInfo = {
         await serialNumber(async(err, value) => {
             
             PCInfo.serialNum = await value;
+            if(err){
+                console.log(err);
+            }
         });
         
         return null;
+    },
+
+    fetchInfo(appVersion){
+        this.getSerialNumber();
+        let ipInfo = this.getIpAddress();
+        let computerName = this.getComputerName();
+
+        let data = {
+            equipDetalhesIp: ipInfo.endereco,
+            equipDetalhesMac: ipInfo.mac,
+            equipDetalhesNome: computerName,
+            equipSerie: config.teste ? 'PE08VTB61' : this.serialNum,
+            // equipDatalhesId : configExterna.configEquipmentoID,
+            sistemaVersao: appVersion,
+            ambiente: config.teste ? 'TESTE' : 'PRODUCAO'
+        }
+    
+    console.log(JSON.stringify(data)+"\n");
+
+
+    fetch(config.url, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      }).then(response => response.json())
+      .then(result => {
+        console.log('\nResposta do servidor:', result);
+        createFile.write('server-response', 'txt', JSON.stringify(result), config.teste, true);
+      })
+      .catch(error => {
+        console.error('Erro:', error);
+        createFile.write('server-response-error', 'txt', error.toString(), config.teste, true);
+        // Trate o erro adequadamente
+      });
     }
+
 }
 
 module.exports = PCInfo;

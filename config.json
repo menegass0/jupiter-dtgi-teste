@@ -6,6 +6,6 @@
     "printInterval": 1800000,
     "scripts":{
         "vbs-fecha-abre": "set startsla = createobject('wscript.shell')\nstrUser = CreateObject('WScript.Network').UserName\nstartsla.run'cmd /k taskkill /im JUPITER-DTGI.exe /f', 0\n wscript.sleep 200\nstartsla.run'cmd /k  taskkill /im JUPITER-DTGI.exe /f', 0 \nwscript.sleep 20000\nstartsla.run'cmd /k C:/Users/'+strUser+'/AppData/Local/Programs/jupiter-dtgi/JUPITER-DTGI.exe', 0",
-        "config-script": "{\n \"configEquipmentoID\" : 123\n}"
+        "config-script": "{\n\t\"configEquipmentoID\" : 123\n}"
     }
 }

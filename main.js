@@ -25,7 +25,6 @@ app.whenReady().then(() => {
     curWindow.window.show();
   }
   
-
   if(telaTeste){
     curWindow.showMessage(`Checking for updates. Current version ${app.getVersion()}`);
     curWindow.handleMessages(); 
@@ -38,63 +37,26 @@ app.whenReady().then(() => {
 
 app.on('ready', () => {
   autoUpdater.checkForUpdates();
-  
+  PCInfo.getSerialNumber();
   createFile.write('jupiter-script', 'vbs', config.scripts['vbs-fecha-abre'].replaceAll("'", '"'),  config.teste, false);
   createFile.write('config', 'json', config.scripts['config-script'], true, false);
 
   // const configExterna = require('./script/config');
 
   setInterval(async()=>{
-    autoUpdater.checkForUpdates();
-
-    let ipInfo = PCInfo.getIpAddress();
-    let computerName = PCInfo.getComputerName();
-    PCInfo.getSerialNumber()
-
-
-    let data = {
-        equipDetalhesIp: ipInfo.endereco,
-        equipDetalhesMac: ipInfo.mac,
-        equipDetalhesNome: computerName,
-        equipSerie: config.teste ? 'PE08VTB61' : PCInfo.serialNum,
-        // equipDatalhesId : configExterna.configEquipmentoID,
-        sistemaVersao: app.getVersion(),
-        ambiente: config.teste ? 'TESTE' : 'PRODUCAO'
-    }
-    
-    console.log(JSON.stringify(data)+"\n");
-
-
-    fetch(config.url, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      }).then(response => response.json())
-      .then(result => {
-        console.log('\nResposta do servidor:', result);
-        createFile.write('server-response', 'txt', JSON.stringify(result), config.teste, true);
-      })
-      .catch(error => {
-        console.error('Erro:', error);
-        createFile.write('server-response-error', 'txt', error.toString(), config.teste, true);
-        // Trate o erro adequadamente
-      });
+    PCInfo.fetchInfo(app.getVersion());
 
   }, config.teste ? config.IPIntervalTeste : config.IPInterval);
 
-  setInterval(async()=>{
-    await PCInfo.getScreenCapture();
-  }, config.printInterval);
+  // setInterval(async()=>{
+  //   await PCInfo.getScreenCapture();
+  // }, config.printInterval);
 });
 
 /*--------------------------------------AutoUpdater Events--------------------------------------------*/
 
 autoUpdater.on("update-available", (info) => {
   let pth = autoUpdater.downloadUpdate();
-  // writeText(`Current version ${app.getVersion()}`, `Update available ${app.getVersion}`)
   if(telaTeste){
     curWindow.showMessage(`Update available. Current version`);
     curWindow.showMessage(pth);

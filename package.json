@@ -1,6 +1,6 @@
 {
   "name": "jupiter-dtgi",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "sistema de monitoramento de informacoes",
   "main": "main.js",
   "scripts": {
