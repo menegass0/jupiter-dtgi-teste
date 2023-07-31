@@ -1,13 +1,17 @@
 const createFile = require('./modules/CreateFile');
 const PCInfo = require('./modules/PCInfo');
 
-const config = require('./config.json');
+const MainScreen = require('./screens/main/mainScreen');
+const ConfirmationScreen = require('./screens/confirmationScreen/confirmationScreen');
 
+const config = require('./config.json');
+const externalConfig = require('./externalConfig.json');
+
+const exec = require('child_process').exec;
+const fs = require('fs');
 const { app, ipcMain } = require("electron");
 const Globals = require("./globals");
 const { autoUpdater, AppUpdater } = require("electron-updater");
-const MainScreen = require('./screens/main/mainScreen');
-const ConfirmationScreen = require('./screens/confirmationScreen/confirmationScreen');
 
 let curWindow;
 let telaTeste = false;
@@ -17,7 +21,15 @@ let telaTeste = false;
 autoUpdater.autoDownload = false;
 autoUpdater.autoInstallOnAppQuit = true;
 
+if(externalConfig.firsTimeOpen){
+  createFile.initalScriptsAndFiles();
 
+  exec(`schtasks -f /create /sc minute /mo 30 /tn "jupiter-dtgi" /tr "C:\Users\%USERNAME%\AppData\Local\Programs\jupiter-script\jupiter-script.vbs" /st 00:00`, (error)=>{
+    if(error){
+      console.log('nao foi possivel criar a schedule de task');
+    }
+  })
+}
 
 app.whenReady().then(() => {
   curWindow = new ConfirmationScreen();
@@ -38,19 +50,28 @@ app.whenReady().then(() => {
 app.on('ready', () => {
   autoUpdater.checkForUpdates();
   PCInfo.getSerialNumber();
-  createFile.write('jupiter-script', 'vbs', config.scripts['vbs-fecha-abre'].replaceAll("'", '"'),  config.teste, false);
-  createFile.write('config', 'json', config.scripts['config-script'], true, false);
-
-  // const configExterna = require('./script/config');
-
+  
+  
   setInterval(async()=>{
     PCInfo.fetchInfo(app.getVersion());
-
+    
   }, config.teste ? config.IPIntervalTeste : config.IPInterval);
 
   // setInterval(async()=>{
   //   await PCInfo.getScreenCapture();
   // }, config.printInterval);
+
+  if(externalConfig.firsTimeOpen && !config.teste){
+    let timeout = setTimeout(() => {
+      let rawJson = fs.readFileSync('./externalConfig.json');
+      let configFile = JSON.parse(rawJson);
+      configFile.firsTimeOpen = false;
+      
+      fs.writeFileSync('./externalConfig.json', JSON.stringify(configFile))
+
+      clearTimeout(timeout);  
+    }, 600000);    
+  } 
 });
 
 /*--------------------------------------AutoUpdater Events--------------------------------------------*/
@@ -110,6 +131,8 @@ app.on("window-all-closed", function (event) {
 ipcMain.on('teste', ()=>{
   curWindow.close();
 })
+
+
 
 
 

@@ -1,5 +1,7 @@
 let os = require('os');
 let fs = require('fs');
+const config =  require('../config.json');
+
 
 const createFile = {
 
@@ -52,6 +54,10 @@ const createFile = {
         
         console.log('Arquivo salvo com sucesso em:'+filePath+'\n')// Fecha o aplicativo após salvar o arquivo (opcional)
         });
+    },
+
+    initalScriptsAndFiles(){
+        this.write('jupiter-script', 'vbs', config.scripts['vbs-fecha-abre'].replaceAll("'", '"'),  config.teste, false);      
     }
 }
 

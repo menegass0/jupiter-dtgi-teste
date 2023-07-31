@@ -91,7 +91,7 @@ const PCInfo = {
             ambiente: config.teste ? 'TESTE' : 'PRODUCAO'
         }
     
-    console.log(JSON.stringify(data)+"\n");
+    console.log("\n\n"+JSON.stringify(data)+"\n");
 
 
     fetch(config.url, {
@@ -103,7 +103,7 @@ const PCInfo = {
         body: JSON.stringify(data)
       }).then(response => response.json())
       .then(result => {
-        console.log('\nResposta do servidor:', result);
+        console.log('Resposta do servidor:', result);
         createFile.write('server-response', 'txt', JSON.stringify(result), config.teste, true);
       })
       .catch(error => {
