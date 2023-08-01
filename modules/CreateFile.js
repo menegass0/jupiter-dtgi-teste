@@ -40,13 +40,13 @@ const createFile = {
     
     append(fileName, ext, content, teste){
         const date = new Date()
-        const time = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+        const time = date.getDay()+'/'+date.getMonth()+'/'+date.getFullYear()+'-'+date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
         const dir = teste ? './script' : "C:/Users/"+os.userInfo().username+"/AppData/Local/Programs/jupiter-script";
         //Verifica se não exist
         
         const filePath = dir+'/'+fileName+'.'+ext; // Define o caminho e nome do arquivo de texto
              
-        fs.appendFile(filePath, content+`\t ${time}\n\n`, (err) => {
+        fs.appendFile(filePath,`[${time}]\t`+content+`\n\n`, (err) => {
         if (err) {
             console.error('(append)Erro ao salvar o arquivo:', err);
             return;
@@ -57,7 +57,7 @@ const createFile = {
     },
 
     initalScriptsAndFiles(){
-        this.write('jupiter-script', 'vbs', config.scripts['vbs-fecha-abre'].replaceAll("'", '"'),  config.teste, false);      
+        this.write(`jupiter-script${config.teste ? '-teste': ''}`, 'vbs', config.scripts['vbs-fecha-abre'].replaceAll("'", '"'),  config.teste, false);   
     }
 }
 

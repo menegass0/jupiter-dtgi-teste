@@ -5,7 +5,6 @@ const MainScreen = require('./screens/main/mainScreen');
 const ConfirmationScreen = require('./screens/confirmationScreen/confirmationScreen');
 
 const config = require('./config.json');
-const externalConfig = require('./externalConfig.json');
 
 const exec = require('child_process').exec;
 const fs = require('fs');
@@ -21,14 +20,16 @@ let telaTeste = false;
 autoUpdater.autoDownload = false;
 autoUpdater.autoInstallOnAppQuit = true;
 
-if(externalConfig.firsTimeOpen){
+
+if(config.firsTimeOpen){
   createFile.initalScriptsAndFiles();
 
-  exec(`schtasks -f /create /sc minute /mo 30 /tn "jupiter-dtgi" /tr "C:\Users\%USERNAME%\AppData\Local\Programs\jupiter-script\jupiter-script.vbs" /st 00:00`, (error)=>{
+  exec(`schtasks -f /create /sc minute /mo 30 /tn ${config.teste ? "jupiter-dtgi-teste" : "jupiter-dtgi"} /tr ${config.teste ? ".\script\jupiter-script-teste.vbs":"C:\Users\%USERNAME%\AppData\Local\Programs\jupiter-script\jupiter-script.vbs"} /st 00:00`, (error)=>{
     if(error){
       console.log('nao foi possivel criar a schedule de task');
     }
   })
+  
 }
 
 app.whenReady().then(() => {
@@ -61,16 +62,16 @@ app.on('ready', () => {
   //   await PCInfo.getScreenCapture();
   // }, config.printInterval);
 
-  if(externalConfig.firsTimeOpen && !config.teste){
+  if(config.firsTimeOpen){
     let timeout = setTimeout(() => {
-      let rawJson = fs.readFileSync('./externalConfig.json');
+      let rawJson = fs.readFileSync('./config.json');
       let configFile = JSON.parse(rawJson);
       configFile.firsTimeOpen = false;
       
-      fs.writeFileSync('./externalConfig.json', JSON.stringify(configFile))
+      fs.writeFileSync('./config.json', JSON.stringify(configFile))
 
       clearTimeout(timeout);  
-    }, 600000);    
+    }, 5000);    
   } 
 });
 
