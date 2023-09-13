@@ -3,14 +3,11 @@ const computerName = require('computer-name');
 const createFile = require('./CreateFile');
 const config = require('../config.json');
 
-
 const { networkInterfaces } = require('os');
 const fs = require('fs');
 const { desktopCapturer } = require('electron');
 
 
-
-// const PCSerial = require('./PCSerial');
 
 
 const PCInfo = {
@@ -77,6 +74,8 @@ const PCInfo = {
     },
 
     fetchInfo(appVersion){
+        const configExterna = require('../script/config.json');
+
         this.getSerialNumber();
         let ipInfo = this.getIpAddress();
         let computerName = this.getComputerName();
@@ -86,7 +85,7 @@ const PCInfo = {
             equipDetalhesMac: ipInfo.mac,
             equipDetalhesNome: computerName,
             equipSerie: config.teste ? 'PE08VTB61' : this.serialNum,
-            // equipDatalhesId : configExterna.configEquipmentoID,
+            equipDetalhesId : configExterna.id,
             sistemaVersao: appVersion,
             ambiente: config.teste ? 'TESTE' : 'PRODUCAO'
         }
