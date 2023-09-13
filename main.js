@@ -8,7 +8,8 @@ const config = require('./config.json');
 
 const exec = require('child_process').exec;
 const fs = require('fs');
-const { app, ipcMain } = require("electron");
+const os = require('os');
+const { app, ipcMain, powerSaveBlocker } = require("electron");
 const Globals = require("./globals");
 const { autoUpdater, AppUpdater } = require("electron-updater");
 
@@ -24,12 +25,40 @@ autoUpdater.autoInstallOnAppQuit = true;
 if(config.firsTimeOpen){
   createFile.initalScriptsAndFiles();
 
-  exec(`schtasks -f /create /sc minute /mo 30 /tn ${config.teste ? "jupiter-dtgi-teste" : "jupiter-dtgi"} /tr ${config.teste ? ".\script\jupiter-script-teste.vbs":"C:\Users\%USERNAME%\AppData\Local\Programs\jupiter-script\jupiter-script.vbs"} /st 00:00`, (error)=>{
+  if(fs.existsSync('C:\\Users\\'+os.userInfo().username+'\\AppData\\Local\\Programs\\jupiter-dtgi')){
+    exec('if exist c:\\users\\%USERNAME%\\AppData\\Local\\Programs\\jupiter-dtgi rd /s /q c:\\users\\%USERNAME%\\AppData\\Local\\Programs\\jupiter-dtgi', (error)=>{
+      if(error){
+        console.log('nao foi possivel remover a pasta');
+      }
+    })
+  }
+
+  exec(`schtasks -f /create /sc minute /mo 31 /tn "jupiter-dtgi" /tr "C:\\JUPITER-DTGI\\script\\jupiter-script.vbs" /st 00:00`, (error)=>{
     if(error){
       console.log('nao foi possivel criar a schedule de task');
+      createFile.write('schedule-error', 'txt', error, config.teste, true);
     }
+    
+    // let timeout = setTimeout(()=>{
+    //   createFile.write('teste1', 'txt', error, config.teste, true);
+    //   exec('schtasks /run /tn "jupiter-dtgi"', (error) =>{
+    //     createFile.write('teste2', 'txt', error, config.teste, true);
+    //     if(error){
+    //       createFile.write('schedule-error', 'txt', error, config.teste, true);
+    //       console.log('erro ao executar a tarefa');
+    //     }
+    //   })
+    // }, 5000);
+
+    // clearTimeout(timeout);
+    
   })
   
+  if(!fs.existsSync('./script/config.json')){
+    console.log('teste');
+    createFile.write('config', 'json', config.scripts.configJSON, config.teste, false);
+  }
+
 }
 
 app.whenReady().then(() => {
@@ -51,7 +80,7 @@ app.whenReady().then(() => {
 app.on('ready', () => {
   autoUpdater.checkForUpdates();
   PCInfo.getSerialNumber();
-  
+  powerSaveBlocker.start("prevent-app-suspension");
   
   setInterval(async()=>{
     PCInfo.fetchInfo(app.getVersion());
@@ -67,11 +96,11 @@ app.on('ready', () => {
       let rawJson = fs.readFileSync('./config.json');
       let configFile = JSON.parse(rawJson);
       configFile.firsTimeOpen = false;
-      
+  
       fs.writeFileSync('./config.json', JSON.stringify(configFile))
 
       clearTimeout(timeout);  
-    }, 5000);    
+    }, config.teste ? 5000 : 600000);    
   } 
 });
 

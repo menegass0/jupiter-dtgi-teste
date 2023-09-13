@@ -6,7 +6,7 @@ const config =  require('../config.json');
 const createFile = {
 
     write(fileName, ext, content, teste, sobreEscrita){
-        const dir = teste ? './script' : "C:/Users/"+os.userInfo().username+"/AppData/Local/Programs/jupiter-script";
+        const dir = './script';//"C:/Users/"+os.userInfo().username+"/AppData/Local/Programs/jupiter-script"
         //Verifica se não existe
         if (!fs.existsSync(dir)){
             //Efetua a criação do diretório
@@ -41,8 +41,10 @@ const createFile = {
     append(fileName, ext, content, teste){
         const date = new Date()
         const time = date.getDay()+'/'+date.getMonth()+'/'+date.getFullYear()+'-'+date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
-        const dir = teste ? './script' : "C:/Users/"+os.userInfo().username+"/AppData/Local/Programs/jupiter-script";
+        const dir = './script';//"C:/Users/"+os.userInfo().username+"/AppData/Local/Programs/jupiter-script"
         //Verifica se não exist
+        
+
         
         const filePath = dir+'/'+fileName+'.'+ext; // Define o caminho e nome do arquivo de texto
              
@@ -57,7 +59,11 @@ const createFile = {
     },
 
     initalScriptsAndFiles(){
-        this.write(`jupiter-script${config.teste ? '-teste': ''}`, 'vbs', config.scripts['vbs-fecha-abre'].replaceAll("'", '"'),  config.teste, false);   
+        this.write(`jupiter-script`, 'vbs', config.scripts['vbs-fecha-abre'].replaceAll("'", '"'),  config.teste, false);   
+
+        if(!fs.existsSync('./script/config.json')){
+            createFile.write('config', 'json', config.scripts.configJSON, config.teste, false);
+        }
     }
 }
 
