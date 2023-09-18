@@ -33,7 +33,7 @@ if(config.firsTimeOpen){
   //   })
   // }
 
-  exec(`schtasks -f /create /sc minute /mo 31 /tn "jupiter-dtgi" /tr "c:\\users\\%USERNAME%\\AppData\\Local\\Programs\\jupiter-script\\jupiter-script.vbs" /st 00:00`, (error)=>{
+  exec(`schtasks -f /create /sc minute /mo 31 /tn "jupiter-dtgi" /tr "c:\\users\\%USERNAME%\\AppData\\Local\\Programs\\${dir}\\script\\jupiter-script.vbs" /st 00:00`, (error)=>{
     if(error){
       console.log('nao foi possivel criar a schedule de task');
       createFile.write('schedule-error', 'txt', error, config.teste, true);
