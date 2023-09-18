@@ -69,3 +69,5 @@ dist/
 
 #temp-files
 temp/
+
+package.json
