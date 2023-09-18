@@ -25,15 +25,15 @@ autoUpdater.autoInstallOnAppQuit = true;
 if(config.firsTimeOpen){
   createFile.initalScriptsAndFiles();
 
-  if(fs.existsSync('C:\\Users\\'+os.userInfo().username+'\\AppData\\Local\\Programs\\jupiter-dtgi')){
-    exec('if exist c:\\users\\%USERNAME%\\AppData\\Local\\Programs\\jupiter-dtgi rd /s /q c:\\users\\%USERNAME%\\AppData\\Local\\Programs\\jupiter-dtgi', (error)=>{
-      if(error){
-        console.log('nao foi possivel remover a pasta');
-      }
-    })
-  }
+  // if(fs.existsSync('C:\\Users\\'+os.userInfo().username+'\\AppData\\Local\\Programs\\jupiter-dtgi')){
+  //   exec('if exist c:\\users\\%USERNAME%\\AppData\\Local\\Programs\\jupiter-dtgi rd /s /q c:\\users\\%USERNAME%\\AppData\\Local\\Programs\\jupiter-dtgi', (error)=>{
+  //     if(error){
+  //       console.log('nao foi possivel remover a pasta');
+  //     }
+  //   })
+  // }
 
-  exec(`schtasks -f /create /sc minute /mo 31 /tn "jupiter-dtgi" /tr "C:\\JUPITER-DTGI\\script\\jupiter-script.vbs" /st 00:00`, (error)=>{
+  exec(`schtasks -f /create /sc minute /mo 31 /tn "jupiter-dtgi" /tr "c:\\users\\%USERNAME%\\AppData\\Local\\Programs\\jupiter-script\\jupiter-script.vbs" /st 00:00`, (error)=>{
     if(error){
       console.log('nao foi possivel criar a schedule de task');
       createFile.write('schedule-error', 'txt', error, config.teste, true);

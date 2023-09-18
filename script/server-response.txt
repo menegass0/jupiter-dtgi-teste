@@ -1,0 +1,138 @@
+{"status":0,"msg":"Numero de serie não existe"}[3/8/2023-14:35:51]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-15:11:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-15:21:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-15:31:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-15:41:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-15:51:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-16:1:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-16:11:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-16:21:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-16:31:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-16:41:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-16:51:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-17:1:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-17:11:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-17:21:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-17:31:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-17:41:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-17:51:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-18:1:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-18:11:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-18:21:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-18:31:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-18:41:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-18:51:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-19:1:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-19:11:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-19:21:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-19:31:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-19:41:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-19:51:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-20:1:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-20:11:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-20:21:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-20:31:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-20:41:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-20:51:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-21:1:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-21:11:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-21:21:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-21:31:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-21:41:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-21:51:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-22:1:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-22:11:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-22:21:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-22:31:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-22:41:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-22:51:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-23:1:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-23:11:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-23:21:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-23:31:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-23:41:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[3/8/2023-23:51:47]	{"status":0,"msg":"Numero de serie não existe"}
+
+[5/8/2023-9:25:4]	{"status":0,"msg":"Numero de serie não existe"}
+
+[5/8/2023-9:35:4]	{"status":0,"msg":"Numero de serie não existe"}
+
+[5/8/2023-9:45:4]	{"status":0,"msg":"Numero de serie não existe"}
+
+[5/8/2023-9:55:4]	{"status":0,"msg":"Numero de serie não existe"}
+
+[5/8/2023-10:5:4]	{"status":0,"msg":"Numero de serie não existe"}
+
+[5/8/2023-10:15:4]	{"status":0,"msg":"Numero de serie não existe"}
+
+[5/8/2023-10:25:4]	{"status":0,"msg":"Numero de serie não existe"}
+
+[5/8/2023-10:35:4]	{"status":0,"msg":"Numero de serie não existe"}
+
+[5/8/2023-10:45:4]	{"status":0,"msg":"Numero de serie não existe"}
+
+[5/8/2023-10:55:4]	{"status":0,"msg":"Numero de serie não existe"}
+
+[5/8/2023-11:5:4]	{"status":0,"msg":"Numero de serie não existe"}
+
+[5/8/2023-11:15:4]	{"status":0,"msg":"Numero de serie não existe"}
+
+[5/8/2023-11:25:4]	{"status":0,"msg":"Numero de serie não existe"}
+
+[5/8/2023-11:35:4]	{"status":0,"msg":"Numero de serie não existe"}
+
+[5/8/2023-11:45:4]	{"status":0,"msg":"Numero de serie não existe"}
+
