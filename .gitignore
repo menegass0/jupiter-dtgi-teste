@@ -71,3 +71,4 @@ dist/
 temp/
 
 package.json
+config.json
