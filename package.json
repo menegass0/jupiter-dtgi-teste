@@ -1,6 +1,6 @@
 {
-  "name": "saturno",
-  "version": "1.1.15",
+  "name": "jupiter-dtgi",
+  "version": "1.2.0",
   "description": "sistema de monitoramento de informacoes",
   "main": "main.js",
   "scripts": {
@@ -9,16 +9,16 @@
     "start": "electron .",
     "dist": "electron-builder"
   },
-  "repository": "https://github.com/menegass0/jupiter-dtgi-teste",
+  "repository": "https://github.com/JorgeNunes/jupiter-dtgi",
   "publish": {
     "provider": "github",
     "releaseType": "release",
-    "owner": "menegass0",
-    "repo": "jupiter-dtgi-teste"
+    "owner": "JorgeNunes",
+    "repo": "jupiter-dtgi"
   },
   "build": {
     "appId": "com.dtgi.jupiter",
-    "productName": "SATURNO",
+    "productName": "JUPITER-DTGI",
     "target": "NSIS",
     "directories": {
       "output": "dist"
