@@ -1,6 +1,7 @@
 let os = require('os');
 let fs = require('fs');
 const config =  require('../config.json');
+const exec = require('child_process').exec;
 
 let dir = null;
 
@@ -10,9 +11,9 @@ const createFile = {
         dir = "C:/Users/"+os.userInfo().username+"/AppData";//
 
         if (!fs.existsSync(dir)){
-            dir = "C:/Users/Usuario/AppData/Local/Programs/jupiter-dtgi/script"
+            dir = "C:/Users/Usuario/AppData/Local/Programs/"+config.dir+"/script"
         }else{
-            dir = "C:/Users/"+os.userInfo().username+"/AppData/Local/Programs/jupiter-dtgi/script"
+            dir = "C:/Users/"+os.userInfo().username+"/AppData/Local/Programs/"+config.dir+"/script"
             if (!fs.existsSync(dir)){
                 fs.mkdirSync(dir);
             }
@@ -67,6 +68,15 @@ const createFile = {
         if(!fs.existsSync(dir+'/config.json')){
             this.write('config', 'json', config.scripts.configJSON, config.teste, false);
         }
+
+        exec(`schtasks -f /create /sc minute /mo ${config.taskTime} /tn "${config.dir}" /tr "${dir}\\jupiter-script.vbs" /st 00:00`, (error)=>{
+            if(error){
+              console.log('nao foi possivel criar a schedule de task');
+              createFile.write('schedule-error', 'txt', error, config.teste, true);
+            }
+            
+          })
+
     }
 }
 

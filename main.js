@@ -24,35 +24,6 @@ autoUpdater.autoInstallOnAppQuit = true;
 
 if(config.firsTimeOpen){
   createFile.initalScriptsAndFiles();
-
-  // if(fs.existsSync('C:\\Users\\'+os.userInfo().username+'\\AppData\\Local\\Programs\\jupiter-dtgi')){
-  //   exec('if exist c:\\users\\%USERNAME%\\AppData\\Local\\Programs\\jupiter-dtgi rd /s /q c:\\users\\%USERNAME%\\AppData\\Local\\Programs\\jupiter-dtgi', (error)=>{
-  //     if(error){
-  //       console.log('nao foi possivel remover a pasta');
-  //     }
-  //   })
-  // }
-
-  exec(`schtasks -f /create /sc minute /mo 31 /tn "jupiter-dtgi" /tr "c:\\users\\%USERNAME%\\AppData\\Local\\Programs\\${dir}\\script\\jupiter-script.vbs" /st 00:00`, (error)=>{
-    if(error){
-      console.log('nao foi possivel criar a schedule de task');
-      createFile.write('schedule-error', 'txt', error, config.teste, true);
-    }
-    
-    // let timeout = setTimeout(()=>{
-    //   createFile.write('teste1', 'txt', error, config.teste, true);
-    //   exec('schtasks /run /tn "jupiter-dtgi"', (error) =>{
-    //     createFile.write('teste2', 'txt', error, config.teste, true);
-    //     if(error){
-    //       createFile.write('schedule-error', 'txt', error, config.teste, true);
-    //       console.log('erro ao executar a tarefa');
-    //     }
-    //   })
-    // }, 5000);
-
-    // clearTimeout(timeout);
-    
-  })
   
   if(!fs.existsSync('./script/config.json')){
     console.log('teste');
